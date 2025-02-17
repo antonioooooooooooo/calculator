@@ -130,7 +130,7 @@ function evaluateExpression() {
       :row="3 + Math.floor((n - 1) / 3)"
       @click="
         expression =
-          answer.length > 0 ? answer + n.toString() : expression + n.toString();
+          answer.length > 0 ? n.toString() : expression + n.toString();
         answer = '';
       "
     />
