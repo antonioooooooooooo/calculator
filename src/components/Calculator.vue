@@ -27,6 +27,19 @@ function formatExpression() {
 }
 
 function handleDotClick() {
+  if (answer.value !== "") {
+    expression.value = answer.value;
+    answer.value = "";
+
+    if (expression.value.indexOf(".") > -1) {
+      alert("Invalid input! Only one dot may be in a number.");
+      return;
+    }
+
+    expression.value += ".";
+    return;
+  }
+
   const lastNumber = getLastNumber();
 
   if (lastNumber.indexOf(".") > -1) {
@@ -39,7 +52,7 @@ function handleDotClick() {
 
 function handleOperatorClick(operator) {
   if (answer.value !== "") {
-    expression.value = answer.value += operator;
+    expression.value = answer.value + operator;
     answer.value = "";
     return;
   }
@@ -115,7 +128,11 @@ function evaluateExpression() {
       :value="n"
       :column="n % 3"
       :row="3 + Math.floor((n - 1) / 3)"
-      @click="expression += n.toString()"
+      @click="
+        expression =
+          answer.length > 0 ? answer + n.toString() : expression + n.toString();
+        answer = '';
+      "
     />
     <NumberButton :value="0" :row="6" :column="2" @click="handleZeroClick" />
   </div>
